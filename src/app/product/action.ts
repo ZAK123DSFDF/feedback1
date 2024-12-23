@@ -1,11 +1,15 @@
-// /app/api/fetchJoke/route.ts
-
-import { NextResponse } from "next/server"
-
 export async function fetchJoke() {
   try {
-    throw new Error("something went wrong")
-  } catch (error: any) {
-    return { ok: false, message: error.message }
+    const response = await fetch("http://localhost:4000", {
+      method: "GET",
+      credentials: "include",
+    })
+    if (!response.ok) {
+      const errorDetails = await response.json()
+      throw new Error(errorDetails?.message || "Failed to fetch data.")
+    }
+    return await response.json()
+  } catch (err: any) {
+    return err
   }
 }
