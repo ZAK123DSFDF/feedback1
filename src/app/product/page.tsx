@@ -2,36 +2,40 @@
 
 import { useState, useEffect } from "react"
 import { fetchJoke } from "./action"
+import { useQuery } from "@tanstack/react-query"
 
 interface Data {
   message: string
 }
 
 export default function ProductPage() {
-  const [data, setData] = useState<Data | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
+  // const [data, setData] = useState<Data | null>(null)
+  // const [error, setError] = useState<string | null>(null)
+  // const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState<string>("")
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const result = await fetchJoke()
-        if (result instanceof Error) {
-          throw result
-        }
-        setData(result)
-      } catch (err: any) {
-        setError(err.message || "An unexpected error occurred.")
-      } finally {
-        setLoading(false)
-      }
-    }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true)
+  //     setError(null)
+  //     try {
+  //       const result = await fetchJoke()
+  //       if (result instanceof Error) {
+  //         throw result
+  //       }
+  //       setData(result)
+  //     } catch (err: any) {
+  //       setError(err.message || "An unexpected error occurred.")
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
 
-    fetchData()
-  }, [])
-
+  //   fetchData()
+  // }, [])
+  const { data, error, isLoading, isError } = useQuery<Data, Error>({
+    queryKey: ["joke"],
+    queryFn: fetchJoke,
+  })
   // Set Cookie
   const setCookie = async () => {
     try {
@@ -81,13 +85,13 @@ export default function ProductPage() {
   return (
     <div>
       {/* Show loading indicator */}
-      {loading && <div style={{ color: "gray" }}>Loading...</div>}
+      {isLoading && <div style={{ color: "gray" }}>Loading...</div>}
 
       {/* Show error message */}
-      {error && <div style={{ color: "red" }}>Error: {error}</div>}
+      {isError && <div style={{ color: "red" }}>{error.message}</div>}
 
       {/* Show fetched data */}
-      {!loading && data && (
+      {!isLoading && data && (
         <div style={{ color: "black" }}>Data: {data.message}</div>
       )}
 

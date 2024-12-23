@@ -10,6 +10,6 @@ export async function fetchJoke() {
     }
     return await response.json()
   } catch (err: any) {
-    return err
+    throw new Error(err)
   }
 }
