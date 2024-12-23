@@ -26,8 +26,28 @@ export default function ProductPage() {
       throw error
     }
   }
+  const fetchData3 = async (body: any) => {
+    try {
+      const response = await fetch("/api/fetchServer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      })
+
+      if (!response.ok) {
+        const errorDetails = await response.json()
+        throw new Error(errorDetails.message || "Failed to fetch data.")
+      }
+
+      return await response.json()
+    } catch (error: any) {
+      throw error
+    }
+  }
   const mutation = useMutation({
-    mutationFn: (body: any) => fetchData1(body),
+    mutationFn: (body: any) => fetchData3(body),
     onSuccess: (data) => {
       console.log("Success:", data)
       setMessage(data.message)
