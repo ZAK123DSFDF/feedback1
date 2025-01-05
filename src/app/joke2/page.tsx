@@ -1,20 +1,13 @@
-"use client"
-
-import { useQuery } from "@tanstack/react-query"
-import Link from "next/link"
+import JokePageCom from "../components/Joke"
 import joke from "./action"
+import joke1 from "./action1"
 
-export default function JokePage() {
-  const { data, isError, error, isLoading } = useQuery({
-    queryKey: ["joke"],
-    queryFn: () => joke(),
-  })
-
+export default async function JokePage() {
+  const data = await joke()
+  const data2 = await joke1()
   return (
     <>
-      {isLoading && <div>Loading...</div>}
-      {isError && <div>Error: {error.message}</div>}
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      <JokePageCom data1={data} data2={data2} />
     </>
   )
 }

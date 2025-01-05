@@ -21,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  dehydratedState,
 }: Readonly<{
   children: React.ReactNode
+  dehydratedState: any
 }>) {
   return (
     <html lang="en">
