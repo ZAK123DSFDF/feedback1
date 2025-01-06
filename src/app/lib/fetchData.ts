@@ -1,6 +1,4 @@
-export async function fetchData<T>(
-  url: string
-): Promise<T | { error: string; status: number }> {
+export async function fetchData<T>(url: string): Promise<any> {
   try {
     const response = await fetch(url)
     if (!response.ok) {

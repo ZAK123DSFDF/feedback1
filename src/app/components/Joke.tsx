@@ -12,7 +12,7 @@ export default function JokePageCom({
   const { data, isPending } = useQuery({
     queryKey: ["joke"],
     queryFn: async () => {
-      const data: any = await fetchData("http://localhost:3000/api/joke1")
+      const data = await fetchData("http://localhost:3000/api/joke1")
       return data
     },
   })
