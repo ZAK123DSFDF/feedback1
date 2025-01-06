@@ -1,22 +1,28 @@
-"use server"
+import { NextResponse } from "next/server"
+
+class HttpException extends Error {
+  status: number
+  message: string
+
+  constructor(message: string, status: number) {
+    super(message)
+    this.name = "HttpException"
+    this.status = status
+    this.message = message
+  }
+}
+
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 export default async function joke1() {
   try {
-    console.log("this is the request")
-    const response = await fetch("https://icanhazdadjoke.com/", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`)
-    }
-
-    const data = await response.json()
-    return data
+    await delay(3000)
+    throw new HttpException("Failed to fetch data.", 400)
   } catch (err: any) {
-    throw err
+    if (err instanceof HttpException) {
+      return { error: err.message, status: err.status }
+    }
   }
 }

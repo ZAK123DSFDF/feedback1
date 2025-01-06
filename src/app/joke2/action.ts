@@ -1,8 +1,11 @@
 "use server"
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 export default async function joke() {
   try {
-    console.log("this is the request")
+    await delay(3000)
     const response = await fetch("https://icanhazdadjoke.com/", {
       method: "GET",
       headers: {

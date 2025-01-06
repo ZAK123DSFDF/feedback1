@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import QueryProvider from "@/provider/Query"
-
+import { Providers } from "@/provider/NextUiProvider"
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -21,17 +21,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  dehydratedState,
 }: Readonly<{
   children: React.ReactNode
-  dehydratedState: any
 }>) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <Providers>{children}</Providers>
+        </QueryProvider>
       </body>
     </html>
   )
