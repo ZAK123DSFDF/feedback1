@@ -12,11 +12,14 @@
     "@nextui-org/react": "^2.6.11",
     "@tanstack/react-query": "^5.62.8",
     "@tanstack/react-query-devtools": "^5.62.8",
+    "@types/http-errors": "^2.0.4",
     "framer-motion": "^11.15.0",
+    "http-errors": "^2.0.0",
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.54.0"
+    "react-hook-form": "^7.54.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/node": "^20",

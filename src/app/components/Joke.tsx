@@ -1,6 +1,7 @@
 "use client"
 import { useQuery } from "@tanstack/react-query"
 import { fetchData } from "../lib/fetchData"
+import joke from "../joke2/action"
 
 export default function JokePageCom({
   data1,
@@ -11,14 +12,15 @@ export default function JokePageCom({
 }) {
   const { data, isPending } = useQuery({
     queryKey: ["joke"],
-    queryFn: async () => {
-      const data = await fetchData("http://localhost:3000/api/joke1")
-      return data
-    },
+    queryFn: () => joke(),
   })
   return (
     <>
-      {data1 && <div>{data1.joke}</div>}{" "}
+      {data1 && data1?.error ? (
+        <div>{data1?.error}</div>
+      ) : (
+        <div>{data1?.joke}</div>
+      )}
       {data2 && data2?.error ? (
         <div>{data2?.error}</div>
       ) : (
